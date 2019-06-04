@@ -67,9 +67,9 @@ public class RegistrarModel implements IRegistrar.IRegistrarModel {
 
                             user.updateProfile(profileUpdates);
 
+
                             usuario.setCodigoUsuario(user.getUid());
 
-                            updateDatabaseUsuario(usuario);
                             updateStorageUsuario(usuario);
 
                             Log.i("milogin",mAuth.getCurrentUser()+"");
@@ -150,6 +150,10 @@ public class RegistrarModel implements IRegistrar.IRegistrarModel {
 
             final StorageReference ref = storageReference.child(usuario.getCodigoUsuario()).child(filePath.getLastPathSegment());
             ref.putFile(filePath);
+
+            usuario.setImagen(usuario.getCodigoUsuario()+"/"+filePath.getLastPathSegment());
+
+            updateDatabaseUsuario(usuario);
         }
     }
 

@@ -54,7 +54,7 @@ public class CompetidorAdapter extends RecyclerView.Adapter<CompetidorAdapter.Co
             Uri filePath = Uri.parse(competidor.getImagen());
             FirebaseStorage storage = FirebaseStorage.getInstance();
             StorageReference storageReference = storage.getReference("imagenes").
-                    child(competidor.getCodigo_usuario()).child(filePath.getLastPathSegment()+"");
+                    child(competidor.getImagen());
 
             GlideApp.with(context)
                     .load(storageReference)
