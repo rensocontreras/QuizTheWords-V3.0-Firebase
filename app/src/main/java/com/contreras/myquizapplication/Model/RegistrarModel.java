@@ -152,9 +152,9 @@ public class RegistrarModel implements IRegistrar.IRegistrarModel {
             ref.putFile(filePath);
 
             usuario.setImagen(usuario.getCodigoUsuario()+"/"+filePath.getLastPathSegment());
-
-            updateDatabaseUsuario(usuario);
         }
+
+        updateDatabaseUsuario(usuario);
     }
 
     @Override
