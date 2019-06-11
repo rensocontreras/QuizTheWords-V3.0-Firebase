@@ -25,7 +25,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="NIVEL"/>
+                android:text="NIVEL "/>
 
             <TextView
                 android:id="@+id/tv_numero_nivel_ranking"
@@ -50,6 +50,7 @@
                 android:text="10"/>
 
             <TextView
+                android:id="@+id/tv_plural_personas"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="  personas"/>

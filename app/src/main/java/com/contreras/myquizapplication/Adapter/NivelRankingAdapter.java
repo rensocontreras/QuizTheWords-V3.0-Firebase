@@ -43,6 +43,10 @@ public class NivelRankingAdapter extends RecyclerView.Adapter<NivelRankingAdapte
         holder.tv_numero_nivel_ranking.setText(nivel.getNumero_nivel()+"");
         holder.tv_numero_competidores.setText(nivel.getTotal()+"");
 
+        if(nivel.getTotal() == 1)
+            holder.tv_plural_personas.setText("  persona");
+        else holder.tv_plural_personas.setText("  personas");
+
         holder.contenedor_nivel_ranking.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -64,11 +68,13 @@ public class NivelRankingAdapter extends RecyclerView.Adapter<NivelRankingAdapte
 
         TextView tv_numero_nivel_ranking;
         TextView tv_numero_competidores;
+        TextView tv_plural_personas;
         LinearLayout contenedor_nivel_ranking;
 
         public NivelRankingAdapterViewHolder(View itemView) {
             super(itemView);
             tv_numero_nivel_ranking = itemView.findViewById(R.id.tv_numero_nivel_ranking);
+            tv_plural_personas = itemView.findViewById(R.id.tv_plural_personas);
             tv_numero_competidores = itemView.findViewById(R.id.tv_numero_competidores);
             contenedor_nivel_ranking = itemView.findViewById(R.id.contenedor_nivel_ranking);
         }
