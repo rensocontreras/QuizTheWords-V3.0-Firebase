@@ -47,7 +47,7 @@ public class HomeActivity extends AppCompatActivity implements IHome.IHomeView {
 
     @OnClick(R.id.btn_ranking)
     public void ranking(){
-        Intent i = new Intent(HomeActivity.this, RankingActivity.class);
+        Intent i = new Intent(HomeActivity.this, NivelRankingActivity.class);
         finish();
         startActivity(i);
     }

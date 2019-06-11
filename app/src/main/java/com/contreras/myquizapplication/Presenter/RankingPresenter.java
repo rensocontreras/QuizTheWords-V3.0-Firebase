@@ -19,9 +19,9 @@ public class RankingPresenter implements IRanking.IRankingPresenter {
 
 
     @Override
-    public void solicitarListaCompetidoresTop() {
+    public void solicitarListaCompetidoresTop(int num_nivel) {
         view.mostrarDialogo();
-        model.consultaListaCompetidoresTop();
+        model.consultaListaCompetidoresTop(num_nivel);
     }
 
     @Override

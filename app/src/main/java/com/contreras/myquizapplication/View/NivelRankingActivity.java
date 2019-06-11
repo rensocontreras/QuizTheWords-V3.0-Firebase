@@ -4,18 +4,18 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
-import com.contreras.myquizapplication.Adapter.CompetidorAdapter;
-import com.contreras.myquizapplication.Entity.ItemEntity.ItemCompetidorTop;
+import com.contreras.myquizapplication.Adapter.NivelRankingAdapter;
+import com.contreras.myquizapplication.Entity.Compite;
 import com.contreras.myquizapplication.Entity.ItemEntity.NivelCompetidores;
 import com.contreras.myquizapplication.Entity.Nivel;
-import com.contreras.myquizapplication.Interfaces.IRanking;
+import com.contreras.myquizapplication.Interfaces.INivelRanking;
+import com.contreras.myquizapplication.Presenter.NivelRankingPresenter;
 import com.contreras.myquizapplication.Presenter.RankingPresenter;
 import com.contreras.myquizapplication.R;
-import com.contreras.myquizapplication.Util.Constantes;
 
 import java.util.ArrayList;
 
@@ -23,30 +23,30 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
-public class RankingActivity extends AppCompatActivity implements IRanking.IRankingView {
+public class NivelRankingActivity extends AppCompatActivity implements INivelRanking.INivelRankingView {
 
-    @BindView(R.id.recycler_competidoresTop)
-    RecyclerView recycler_competidoresTop;
+    @BindView(R.id.recyler_niveles_ranking)
+    RecyclerView recycler_niveles_ranking;
 
-    RankingPresenter presenter;
-    CompetidorAdapter competidorAdapter;
+    NivelRankingPresenter presenter;
+    NivelRankingAdapter nivelRankingAdapter;
     SweetAlertDialog pd;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_ranking);
+        setContentView(R.layout.activity_nivel_ranking);
     }
 
     @Override
     protected void onStart() {
         super.onStart();
         ButterKnife.bind(this);
-        presenter = new RankingPresenter(this);
-        Bundle bundle = getIntent().getExtras();
-        NivelCompetidores nivelActual = (NivelCompetidores) bundle.getSerializable(Constantes.OBJ_NIVEL_COMPETICION_ACTUAL);
-        obtenerCompetidoresTop(nivelActual.getNumero_nivel());
+        presenter = new NivelRankingPresenter(this);
+        obtenerCompetidores();
     }
+
 
     @Override
     protected void onStop() {
@@ -57,20 +57,21 @@ public class RankingActivity extends AppCompatActivity implements IRanking.IRank
     @Override
     public void onBackPressed() {
         finish();
-        Intent intent = new Intent(RankingActivity.this, NivelRankingActivity.class);
+        Intent intent = new Intent(NivelRankingActivity.this, HomeActivity.class);
         startActivity(intent);
     }
 
+
     @Override
-    public void obtenerCompetidoresTop(int num_nivel) {
-        presenter.solicitarListaCompetidoresTop(num_nivel);
+    public void obtenerCompetidores() {
+        presenter.solicitarListaCompetidores();
     }
 
     @Override
-    public void mostrarListaCompetidoresTop(ArrayList<ItemCompetidorTop> competidoresTop) {
-        competidorAdapter = new CompetidorAdapter(this,competidoresTop,R.layout.item_competidor_top);
-        recycler_competidoresTop.setAdapter(competidorAdapter);
-        recycler_competidoresTop.setLayoutManager(new LinearLayoutManager(this));
+    public void mostrarListaCompetidores(ArrayList<NivelCompetidores> nivelCompetidores) {
+        nivelRankingAdapter = new NivelRankingAdapter(this,nivelCompetidores,R.layout.item_nivel_ranking);
+        recycler_niveles_ranking.setAdapter(nivelRankingAdapter);
+        recycler_niveles_ranking.setLayoutManager(new GridLayoutManager(this,2));
     }
 
     @Override
@@ -91,5 +92,4 @@ public class RankingActivity extends AppCompatActivity implements IRanking.IRank
     public void cerrarListeners() {
         presenter.solicitarEliminacionListeners();
     }
-
 }

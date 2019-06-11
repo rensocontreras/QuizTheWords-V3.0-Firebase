@@ -272,7 +272,7 @@ public class QuizModel implements IQuiz.IQuizModel {
         nuevoCompetidorTop.setMy_timer(competicionActual.getMy_timer());
         nuevoCompetidorTop.setPreguntas_resueltas(competicionActual.getPreguntas_resueltas());
 
-        obtenerCompetidorTop(nivelActual.getNumero_nivel(), new MyCallbackExisteTop() {
+        obtenerCompetidorTop(nivelActual.getNumero_nivel(), competicionActual.getCodigo_usuario(), new MyCallbackExisteTop() {
             @Override
             public void onCallback(Top mycompetidorTop) {
 
@@ -369,7 +369,7 @@ public class QuizModel implements IQuiz.IQuizModel {
     public void insertarCompetidor(Top competidorTop){
 
         //Nuevo child, el push() me mette la chiave unica
-        databaseReference.child("TOP").child(competidorTop.getNumero_nivel()+"").setValue(competidorTop).addOnSuccessListener(new OnSuccessListener<Void>() {
+        databaseReference.child("TOP").child("TOP"+competidorTop.getNumero_nivel()).child(competidorTop.getCodigo_usuario()).setValue(competidorTop).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
                 //Toast.makeText(DatabaseActivity.this, "Ok", Toast.LENGTH_SHORT).show();
@@ -388,8 +388,8 @@ public class QuizModel implements IQuiz.IQuizModel {
     }
 
 
-    public void obtenerCompetidorTop(int myNumeroNivel,final MyCallbackExisteTop myCallbackExisteTop ){
-        databaseReference.child("TOP").child(myNumeroNivel+"").addListenerForSingleValueEvent(new ValueEventListener() {
+    public void obtenerCompetidorTop(int myNumeroNivel, String codigoUsuario, final MyCallbackExisteTop myCallbackExisteTop){
+        databaseReference.child("TOP").child("TOP"+myNumeroNivel).child(codigoUsuario).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists())
@@ -408,11 +408,10 @@ public class QuizModel implements IQuiz.IQuizModel {
 
     public void actualizarCompetidorTop(Top competidorTop){
         Map<String,Object> actualizacion = new HashMap<>();
-        actualizacion.put("/codigo_usuario",competidorTop.getCodigo_usuario());
         actualizacion.put("/my_timer",competidorTop.getMy_timer());
         actualizacion.put("/preguntas_resueltas",competidorTop.getPreguntas_resueltas());
 
-        databaseReference.child("TOP").child(competidorTop.getNumero_nivel()+"").updateChildren(actualizacion);
+        databaseReference.child("TOP").child("TOP"+competidorTop.getNumero_nivel()).child(competidorTop.getCodigo_usuario()).updateChildren(actualizacion);
     }
 
 }

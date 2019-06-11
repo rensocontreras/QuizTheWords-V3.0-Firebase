@@ -11,23 +11,24 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:icon">
-        <activity android:name="com.contreras.myquizapplication.Resultados.TimeOutBadActivity" />
-        <activity android:name="com.contreras.myquizapplication.Resultados.BadActivity" />
-        <activity android:name="com.contreras.myquizapplication.Resultados.GoodActivity" />
-        <activity android:name="com.contreras.myquizapplication.Resultados.TimeOutGoodActivity" />
-        <activity android:name="com.contreras.myquizapplication.View.RankingActivity" />
-        <activity android:name="com.contreras.myquizapplication.MainActivity">
+        <activity android:name=".View.NivelRankingActivity"></activity>
+        <activity android:name=".Resultados.TimeOutBadActivity" />
+        <activity android:name=".Resultados.BadActivity" />
+        <activity android:name=".Resultados.GoodActivity" />
+        <activity android:name=".Resultados.TimeOutGoodActivity" />
+        <activity android:name=".View.RankingActivity" />
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.contreras.myquizapplication.View.RegistrarActivity" />
-        <activity android:name="com.contreras.myquizapplication.View.LoginActivity" />
-        <activity android:name="com.contreras.myquizapplication.View.QuizActivity" />
-        <activity android:name="com.contreras.myquizapplication.View.JugarActivity" />
-        <activity android:name="com.contreras.myquizapplication.View.HomeActivity" />
+        <activity android:name=".View.RegistrarActivity" />
+        <activity android:name=".View.LoginActivity" />
+        <activity android:name=".View.QuizActivity" />
+        <activity android:name=".View.JugarActivity" />
+        <activity android:name=".View.HomeActivity" />
     </application>
 
 </manifest>

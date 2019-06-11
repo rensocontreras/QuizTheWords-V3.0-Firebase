@@ -27,6 +27,7 @@ public class RankingModel implements IRanking.IRankingmodel {
     DatabaseReference databaseReference;
 
     ValueEventListener postListener;
+    int num_nivel;
 
     public RankingModel(RankingPresenter presenter, RankingActivity view){
         this.presenter = presenter;
@@ -38,12 +39,13 @@ public class RankingModel implements IRanking.IRankingmodel {
 
 
     @Override
-    public void consultaListaCompetidoresTop() {
-        obtenerItemCompetidoresTop();
+    public void consultaListaCompetidoresTop(int num_nivel) {
+        this.num_nivel = num_nivel;
+        obtenerItemCompetidoresTop(num_nivel);
     }
 
 
-    public void obtenerItemCompetidoresTop(){
+    public void obtenerItemCompetidoresTop(int num_nivel){
 
         postListener = new ValueEventListener() {
             @Override
@@ -63,7 +65,7 @@ public class RankingModel implements IRanking.IRankingmodel {
             }
         };
 
-        databaseReference.child("TOP").addValueEventListener(postListener);
+        databaseReference.child("TOP").child("TOP"+num_nivel).addValueEventListener(postListener);
 
     }
 
@@ -92,7 +94,13 @@ public class RankingModel implements IRanking.IRankingmodel {
 
                 Collections.sort(list_competidores, new Comparator<ItemCompetidorTop>() {
                     @Override public int compare(ItemCompetidorTop p1, ItemCompetidorTop p2) {
-                        return p1.getNumero_nivel() - p2.getNumero_nivel(); // Ascending
+                        if(p1.getPreguntas_resueltas()<p2.getPreguntas_resueltas()) //Decrescente
+                            return 1;
+                        else if(p1.getPreguntas_resueltas()==p2.getPreguntas_resueltas())
+                                  if(p1.getMy_timer()>=p2.getMy_timer())
+                                    return 1;
+                                  else return -1;
+                             else return -1;
                     }
 
                 });
@@ -110,8 +118,8 @@ public class RankingModel implements IRanking.IRankingmodel {
 
     @Override
     public void eliminarListeners() {
-        databaseReference.child("TOP").removeEventListener(postListener);
-        Log.i("Desconectado","listeners");
+        databaseReference.child("TOP").child("TOP"+num_nivel).removeEventListener(postListener);
+        Log.i("Desconectado","listeners"+num_nivel);
     }
 
 }
